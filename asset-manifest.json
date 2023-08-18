@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/movies-explorer-frontend/static/css/main.e0a81e92.css",
-    "main.js": "/movies-explorer-frontend/static/js/main.e139c267.js",
-    "static/media/landing-logo.svg": "/movies-explorer-frontend/static/media/landing-logo.1b115f5d2f35c27947e311c877a6c15b.svg",
-    "static/media/profile.jpg": "/movies-explorer-frontend/static/media/profile.f4fe7f04cf4f95e5bbc0.jpg",
-    "static/media/Inter-Medium.woff?v=3.19": "/movies-explorer-frontend/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
-    "static/media/Inter-Black.woff?v=3.19": "/movies-explorer-frontend/static/media/Inter-Black.c6938660eec019fefd68.woff",
-    "static/media/Inter-Regular.woff?v=3.19": "/movies-explorer-frontend/static/media/Inter-Regular.8c206db99195777c6769.woff",
-    "static/media/Inter-Medium.woff2?v=3.19": "/movies-explorer-frontend/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
-    "static/media/Inter-Black.woff2?v=3.19": "/movies-explorer-frontend/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
-    "static/media/Inter-Regular.woff2?v=3.19": "/movies-explorer-frontend/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
-    "static/media/image-content.jpg": "/movies-explorer-frontend/static/media/image-content.f5a327bdbe6da2fe6e8a.jpg",
-    "static/media/logo.svg": "/movies-explorer-frontend/static/media/logo.a40b7754b0b4fab73e500fffabe19285.svg",
-    "index.html": "/movies-explorer-frontend/index.html",
-    "static/media/profile.svg": "/movies-explorer-frontend/static/media/profile.41fe50813d87ab309d6b.svg",
-    "static/media/close-icon.svg": "/movies-explorer-frontend/static/media/close-icon.14ca7b13bae48ccd76ef.svg",
-    "static/media/menu-btn.svg": "/movies-explorer-frontend/static/media/menu-btn.f4eda59cff73fa84f1ea9e452581619a.svg",
-    "static/media/close-btn.svg": "/movies-explorer-frontend/static/media/close-btn.4828fddbd650ab863f280df6b6b9282f.svg",
-    "static/media/find.svg": "/movies-explorer-frontend/static/media/find.1396417a186beb9c18ac.svg",
-    "static/media/arrow.svg": "/movies-explorer-frontend/static/media/arrow.21d4a41cbd169bf0c5fe.svg",
-    "main.e0a81e92.css.map": "/movies-explorer-frontend/static/css/main.e0a81e92.css.map",
-    "main.e139c267.js.map": "/movies-explorer-frontend/static/js/main.e139c267.js.map"
+    "main.css": "./static/css/main.c44917ef.css",
+    "main.js": "./static/js/main.5b2f6646.js",
+    "static/media/landing-logo.svg": "./static/media/landing-logo.1b115f5d2f35c27947e311c877a6c15b.svg",
+    "static/media/profile.jpg": "./static/media/profile.f4fe7f04cf4f95e5bbc0.jpg",
+    "static/media/Inter-Medium.woff?v=3.19": "./static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff?v=3.19": "./static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff?v=3.19": "./static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2?v=3.19": "./static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2?v=3.19": "./static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2?v=3.19": "./static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/image-content.jpg": "./static/media/image-content.f5a327bdbe6da2fe6e8a.jpg",
+    "static/media/logo.svg": "./static/media/logo.a40b7754b0b4fab73e500fffabe19285.svg",
+    "index.html": "./index.html",
+    "static/media/profile.svg": "./static/media/profile.41fe50813d87ab309d6b.svg",
+    "static/media/close-icon.svg": "./static/media/close-icon.14ca7b13bae48ccd76ef.svg",
+    "static/media/menu-btn.svg": "./static/media/menu-btn.f4eda59cff73fa84f1ea9e452581619a.svg",
+    "static/media/close-btn.svg": "./static/media/close-btn.4828fddbd650ab863f280df6b6b9282f.svg",
+    "static/media/find.svg": "./static/media/find.1396417a186beb9c18ac.svg",
+    "static/media/arrow.svg": "./static/media/arrow.21d4a41cbd169bf0c5fe.svg",
+    "main.c44917ef.css.map": "./static/css/main.c44917ef.css.map",
+    "main.5b2f6646.js.map": "./static/js/main.5b2f6646.js.map"
   },
   "entrypoints": [
-    "static/css/main.e0a81e92.css",
-    "static/js/main.e139c267.js"
+    "static/css/main.c44917ef.css",
+    "static/js/main.5b2f6646.js"
   ]
 }
