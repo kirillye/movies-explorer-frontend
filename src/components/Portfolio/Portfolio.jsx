@@ -10,7 +10,7 @@ function Portfolio() {
             <a
               target="_blank"
               href="https://kirillye.github.io/how-to-learn/"
-              className="portfolio__link"
+              className="portfolio__link link_color_white"
               rel="noreferrer"
             >
               Статичный сайт
@@ -20,7 +20,7 @@ function Portfolio() {
             <a
               target="_blank"
               href="https://kirillye.github.io/russian-travel/"
-              className="portfolio__link"
+              className="portfolio__link link_color_white"
               rel="noreferrer"
             >
               Адаптивный сайт
@@ -30,7 +30,7 @@ function Portfolio() {
             <a
               target="_blank"
               href="https://mesto.kirill.nomoredomains.work/"
-              className="portfolio__link"
+              className="portfolio__link link_color_white"
               rel="noreferrer"
             >
               Одностраничное приложение

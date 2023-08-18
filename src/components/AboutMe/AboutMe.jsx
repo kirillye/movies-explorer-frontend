@@ -6,7 +6,6 @@ function AboutMe() {
     <section className="about-me">
       <div className="container">
         <h2 className="sub-title about-me__title">Студент</h2>
-        <div className="line about-me__line"></div>
         <div className="about-me__content">
           <div className="about-me__text-info">
             <div className="about-me__main-info">
@@ -22,13 +21,18 @@ function AboutMe() {
                 подрабатывать.
               </p>
             </div>
-            <a className="about-me__link" href="#" target="_blank">
+            <a
+              className="about-me__link "
+              href="https://github.com/kirillye"
+              target="_blank"
+              rel="noreferrer"
+            >
               Github
             </a>
           </div>
           <img
             src={prfileImage}
-            alt="Фотография в Портфолио"
+            alt="Фотография со мной, сделанная при позде на Кавказ"
             className="about-me__photo"
           />
         </div>

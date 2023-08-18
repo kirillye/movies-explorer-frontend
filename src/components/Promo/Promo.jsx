@@ -1,6 +1,6 @@
 // import { useState } from "react";
 import "./Promo.css";
-import imageWorld from "../../images/text__COLOR_landing-logo.png";
+import imageWorld from "../../images/landing-logo.svg";
 import NavTab from "../NavTab/NavTab";
 
 function Promo() {

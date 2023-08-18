@@ -18,8 +18,8 @@ function Header({ logo, loggedIn }) {
       >
         <div className="container-padding-small">
           <div className="header__up">
-            <Link to="/" className="menu__link link_color_white">
-              <img src={logo} alt="Логотип" className="logo" />
+            <Link to="/" className="menu__link logo">
+              <img src={logo} alt="Логотип" />
             </Link>
             <Navigation loggedIn={loggedIn} />
           </div>

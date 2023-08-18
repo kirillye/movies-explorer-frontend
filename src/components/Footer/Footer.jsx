@@ -11,7 +11,6 @@ function Footer({ logo, loggedIn, handleLogOut, userData }) {
           <p className="footer__name-project">
             Учебный проект Яндекс.Практикум х BeatFilm.
           </p>
-          <div className="footer__line"></div>
           <div className="footer__down">
             <time className="footer__date-info">© {newDateYears}</time>
             <ul className="list footer__links">

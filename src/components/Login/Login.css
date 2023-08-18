@@ -6,10 +6,17 @@
 }
 
 .login__title {
-  margin: 40px 0;
+  margin: 35px 0 30px;
   color: #fff;
   font-size: 24px;
   font-weight: 500;
+}
+
+.form-aut__err-message {
+  margin: -5px 0 20px;
+  color: #ee3465;
+  font-size: 10px;
+  font-weight: 400;
 }
 
 .info-autorization {
@@ -29,9 +36,15 @@
   font-family: Inter;
   font-size: 14px;
   font-weight: 400;
+  transition: all 0.25s linear;
 }
 
-input.form-aut__input {
+.info-autorization__btn:hover {
+  opacity: 0.8;
+}
+
+.form-aut__input {
+  border: 1px solid transparent;
   margin-top: 10px;
   border-radius: 8px;
   padding: 15px;
@@ -41,9 +54,16 @@ input.form-aut__input {
   font-size: 13px;
   font-weight: 500;
   outline: none;
-  border: none;
   background-color: #2f2f2f;
   box-sizing: border-box;
+}
+
+.form-aut__input:focus {
+  border: 1px solid #ffffff57;
+}
+
+.form-aut__input::placeholder {
+  color: #fff;
 }
 
 .text-field__label {
@@ -52,17 +72,13 @@ input.form-aut__input {
   font-weight: 400;
 }
 
-.input.form-aut__input::placeholder {
-  color: #fff;
-}
-
 .form-aut__input:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-input.form-aut__input:-webkit-autofill,
-input.form-aut__input:-webkit-autofill:hover,
-input.form-aut__input:-webkit-autofill:focus {
+.form-aut__input:-webkit-autofill,
+.form-aut__input:-webkit-autofill:hover,
+.form-aut__input:-webkit-autofill:focus {
   border: 1px solid #2f2f2f;
   -webkit-text-fill-color: #fff;
   -webkit-box-shadow: 0 0 0px 1000px #2f2f2f inset;
@@ -70,7 +86,7 @@ input.form-aut__input:-webkit-autofill:focus {
 }
 
 .form-aut__btn {
-  margin: 70px 0 15px;
+  margin: 55px 0 15px;
   border-radius: 3px;
   background: #4285f4;
   width: 100%;
@@ -82,14 +98,24 @@ input.form-aut__input:-webkit-autofill:focus {
 }
 
 .form-aut__btn-login {
-  margin-top: 180px;
+  margin-top: 135px;
+}
+.form-aut__input-error {
+  border: 1px solid #ee3465;
 }
 
 @media (max-width: 460px) {
   .login {
     min-height: 100vh;
+    justify-content: start;
     padding: 60px 0 30px;
     box-sizing: border-box;
+  }
+  .form-aut {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .form-aut__btn-login {
     margin-top: 0;
@@ -101,5 +127,9 @@ input.form-aut__input:-webkit-autofill:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .info-autorization__alert,
+  .info-autorization__btn {
+    font-size: 12px;
   }
 }

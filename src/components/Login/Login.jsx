@@ -1,47 +1,76 @@
 import "./Login.css";
-import Form from "../Form/Form";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function Login({ logo }) {
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+    console.log("Форма успешно отправлена");
+    reset();
+  };
+
   return (
     <main className="main">
-      <div className="container-mini login">
-        <div className="login__body">
-          <Link to="/" className="login__logo">
-            <img src={logo} alt="Логотип" className="logo login__logo-image" />
-          </Link>
-          <h1 className="login__title">Рады видеть!</h1>
-          <form className="form-aut" onSubmit={handleSubmit}>
+      <section className="container-mini login">
+        <Link to="/" className="login__logo">
+          <img src={logo} alt="Логотип" className="logo login__logo-image" />
+        </Link>
+        <h1 className="login__title">Рады видеть!</h1>
+        <form className="form-aut" onSubmit={handleSubmit(onSubmit)} novalidate>
+          <div className="form-body">
             <label className="text-field__label" htmlFor="userEmail">
               E-mail
             </label>
             <input
-              name="userEmail"
+              {...register("email", {
+                required: "Поле обязательно к заполнению",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                  message: "email указан некорректно",
+                },
+              })}
               placeholder="Email"
               type="email"
-              className="form-aut__input form-aut__input-email"
-              required
+              className={`form-aut__input form-aut__input-email ${
+                errors?.email ? "form-aut__input-error" : ""
+              }`}
               id="userEmail"
             />
+            {errors?.email && (
+              <p className="form-aut__err-message">
+                {errors?.email.message || "Что-то пошло не так..."}
+              </p>
+            )}
             <label className="text-field__label" htmlFor="userPassword">
               Пароль
             </label>
             <input
-              name="userPassword"
+              {...register("password", {
+                required: "Поле обязательно к заполнению",
+              })}
+              required
               placeholder="Пароль"
               type="password"
-              className="form-aut__input"
-              required
+              className={`form-aut__input ${
+                errors?.password ? "form-aut__input-error" : ""
+              }`}
               id="userPassword"
             />
-            <p className="form-aut__err-message">{}</p>
-          </form>
-        </div>
-        <div className="login__navigation">
+            {errors?.password && (
+              <p className="form-aut__err-message">
+                {errors?.password.message || "Что-то пошло не так..."}
+              </p>
+            )}
+          </div>
           <div className="info-autorization">
             <button
               type="submit"
@@ -56,8 +85,8 @@ function Login({ logo }) {
               Регистрация
             </Link>
           </div>
-        </div>
-      </div>
+        </form>
+      </section>
     </main>
   );
 }

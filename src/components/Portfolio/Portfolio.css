@@ -4,7 +4,7 @@
 
 .portfolio__title {
   margin: 0;
-  padding: 100px 0 50px;
+  padding: 100px 0 30px;
   color: #8b8b8b;
   font-feature-settings: "clig" off, "liga" off;
   font-size: 18px;
@@ -33,7 +33,7 @@
 }
 
 .portfolio__item::after {
-  content: url("../../images/text-color-font-main.png");
+  content: url("../../images/arrow.svg");
   position: absolute;
   height: 60px;
   width: 30px;
@@ -44,19 +44,22 @@
 .portfolio__link {
   width: 100%;
   display: block;
-  color: #fff;
   text-decoration: none;
 }
 
 @media (max-width: 800px) {
   .portfolio__title {
-    padding-top: 90px;
+    padding-top: 97px;
   }
   .portfolio__item {
     font-size: 28px;
   }
   .portfolio__list {
     padding-bottom: 90px;
+  }
+  .portfolio__item::after {
+    top: calc(50% - 30px);
+    right: -5px;
   }
 }
 

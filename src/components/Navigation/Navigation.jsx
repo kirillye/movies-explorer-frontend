@@ -23,7 +23,7 @@ function Navigation({ logo, loggedIn = false }) {
               </NavLink>
             </li>
             <li className="menu__item">
-              <NavLink to="/signin" className="btn menu__link menu__btn">
+              <NavLink to="/signin" className="btn menu__link menu__btn btn">
                 Войти
               </NavLink>
             </li>
@@ -84,7 +84,7 @@ function Navigation({ logo, loggedIn = false }) {
               <li className="mobile-menu__link menu-account">
                 <NavLink
                   to="/profile"
-                  className="btn menu-account__link link_color_white "
+                  className="menu-account__link link_color_white "
                 >
                   <span>Аккаунт</span>
                   <div className="menu-account__image"></div>
@@ -96,6 +96,7 @@ function Navigation({ logo, loggedIn = false }) {
       )}
       {loggedIn && (
         <button
+          type="button"
           className="header-btn"
           onClick={() => {
             setOpen(!isOpen);

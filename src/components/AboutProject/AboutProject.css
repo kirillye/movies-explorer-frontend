@@ -5,17 +5,22 @@
 
 .about__title {
   padding-top: 110px;
+  padding-bottom: 25px;
+  position: relative;
 }
 
-.about__line {
-  margin: 25px 0 70px 0;
+.about__title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
   height: 1px;
-  font-weight: 400;
   width: 100%;
-  background-color: #dadada;
+  background-color: #fff;
 }
 
 .about__articles {
+  margin-top: 70px;
   display: flex;
   justify-content: space-between;
   gap: 40px;
@@ -40,7 +45,7 @@
   height: 35px;
   display: grid;
   gap: 0;
-  grid-template-columns: minmax(100px, 1fr) 3fr;
+  grid-template-columns: minmax(100px, 1fr) 4fr;
   /* padding-bottom: 110px; */
 }
 
@@ -65,7 +70,7 @@
 .about__names-times {
   display: grid;
   gap: 0;
-  grid-template-columns: minmax(100px, 1fr) 3fr;
+  grid-template-columns: minmax(100px, 1fr) 4fr;
   padding: 15px 0 110px;
 }
 
@@ -82,10 +87,15 @@
 @media (max-width: 800px) {
   .about__title {
     padding-top: 90px;
+    padding-bottom: 25px;
   }
   .about__articles {
     gap: 30px;
-    margin-bottom: 90px;
+    margin: 65px 0 90px;
+  }
+
+  .about__arcticle-info {
+    font-size: 12px;
   }
 
   .about__names-times {
@@ -96,16 +106,36 @@
 @media (max-width: 600px) {
   .about__articles {
     flex-direction: column;
-    gap: 55px;
+    gap: 60px;
   }
 }
 
 @media (max-width: 360px) {
+  .about__backend,
+  .about__front,
+  .about__backend-info,
+  .about__front-info {
+    font-size: 11px;
+  }
+
+  .about__names-times {
+    padding-top: 10px;
+  }
+
   .sub-title {
     padding-top: 70px;
   }
+
   .about__line {
     margin-bottom: 60px;
+  }
+
+  .about__title {
+    font-size: 18px;
+  }
+
+  .about__articles {
+    margin-bottom: 64px;
   }
 
   .about__arcticle-title {

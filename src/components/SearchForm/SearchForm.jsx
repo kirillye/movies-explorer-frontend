@@ -6,7 +6,7 @@ function SearchForm() {
     e.preventDefault();
   }
   return (
-    <div className="search">
+    <section className="search">
       <div className="container-padding-small search__body">
         <form action="search__form" onSubmit={handleSubmit}>
           <div className="search__line-input">
@@ -29,7 +29,7 @@ function SearchForm() {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 }
 

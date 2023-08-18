@@ -1,6 +1,7 @@
 import "./Profile.css";
+import { Link } from "react-router-dom";
 
-function Profile({ userName = "Пользователь", userEmail = "user-email.ru" }) {
+function Profile({ userName = "Кирилл", userEmail = "user-email.ru" }) {
   return (
     <main className="main">
       <section className="user container-mini">
@@ -20,17 +21,20 @@ function Profile({ userName = "Пользователь", userEmail = "user-emai
         <nav>
           <ul className="user__navigation list">
             <li className="user__navigation-item">
-              <button type="button" className="user__navigation-btn ">
+              <button
+                type="button"
+                className="user__navigation-btn link_color_white"
+              >
                 Редактировать
               </button>
             </li>
             <li>
-              <button
-                type="button"
+              <Link
+                to="/"
                 className="user__navigation-btn user__navigation-exit"
               >
                 Выйти из аккаунта
-              </button>
+              </Link>
             </li>
           </ul>
         </nav>

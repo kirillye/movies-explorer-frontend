@@ -6,7 +6,7 @@
 }
 
 .promo__content {
-  padding-top: 75px;
+  padding-top: 130px;
   display: flex;
   justify-content: space-between;
 }
@@ -80,7 +80,8 @@
 
 @media (max-width: 500px) {
   .promo__content {
-    padding-top: 70px;
+    padding-top: 50px;
+    gap: 40px;
   }
   .promo__img-baground {
     height: 210px;

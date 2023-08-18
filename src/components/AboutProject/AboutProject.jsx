@@ -5,11 +5,10 @@ function AboutProject() {
     <section className="about" id="about">
       <div className="container">
         <h2 className="sub-title about__title">О проекте</h2>
-        <div className="about__line"></div>
         <ul className="list about__articles">
           <li>
             <article className="about__arcticle">
-              <h3 className="about__arcticle-title">
+              <h3 className="about__arcticle-title about__arcticle-title-sprints">
                 Дипломный проект включал 5 этапов
               </h3>
               <p className="about__arcticle-info">

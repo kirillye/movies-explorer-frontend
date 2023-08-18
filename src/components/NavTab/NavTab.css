@@ -11,3 +11,9 @@
   font-weight: 500;
   margin-bottom: 75px;
 }
+
+@media (max-width: 500px) {
+  .btn-scroll {
+    margin-bottom: 27px;
+  }
+}

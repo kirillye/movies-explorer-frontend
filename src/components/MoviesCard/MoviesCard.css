@@ -59,4 +59,9 @@
   width: 16px;
   display: block;
   border: none;
+  transition: all 0.25s linear;
+}
+
+.card__btn-delete:hover {
+  transform: scale(1.1, 1.1);
 }
