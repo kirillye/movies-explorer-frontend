@@ -12,7 +12,7 @@ function NotFound() {
             <h1 className="not-found__title">Страница не найдена</h1>
           </div>
           <button
-            className="btn not-found__btn"
+            className="not-found__btn"
             type="button"
             onClick={() => navigate(-1)}
           >

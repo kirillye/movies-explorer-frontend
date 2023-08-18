@@ -30,6 +30,15 @@
   background-color: inherit;
 }
 
+.not-found__btn {
+  cursor: pointer;
+  transition: all 0.25s linear;
+}
+
+.not-found__btn:hover {
+  opacity: 0.75;
+}
+
 @media (max-width: 321px) {
   .not-found__error-number {
     font-size: 80px;
