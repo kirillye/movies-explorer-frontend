@@ -25,7 +25,7 @@ function Login({ logo }) {
           <img src={logo} alt="Логотип" className="logo login__logo-image" />
         </Link>
         <h1 className="login__title">Рады видеть!</h1>
-        <form className="form-aut" onSubmit={handleSubmit(onSubmit)} novalidate>
+        <form className="form-aut" onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="form-body">
             <label className="text-field__label" htmlFor="userEmail">
               E-mail
@@ -57,7 +57,6 @@ function Login({ logo }) {
               {...register("password", {
                 required: "Поле обязательно к заполнению",
               })}
-              required
               placeholder="Пароль"
               type="password"
               className={`form-aut__input ${

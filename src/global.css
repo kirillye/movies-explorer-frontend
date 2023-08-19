@@ -3,7 +3,7 @@ html {
 }
 
 .body {
-  font-family: "Inter", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
@@ -22,10 +22,6 @@ html {
 
 .main {
   flex: 1 0 auto;
-}
-
-.footer {
-  flex: 0 0 auto;
 }
 
 .container,

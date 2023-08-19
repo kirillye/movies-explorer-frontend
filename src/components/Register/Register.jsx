@@ -25,7 +25,7 @@ function Register({ logo }) {
           <img src={logo} alt="Логотип" className="logo login__logo-image" />
         </Link>
         <h1 className="login__title">Добро пожаловать!</h1>
-        <form className="form-aut" onSubmit={handleSubmit(onSubmit)} novalidate>
+        <form className="form-aut" onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="form-body">
             <label className="text-field__label" htmlFor="userName">
               Имя
@@ -48,7 +48,6 @@ function Register({ logo }) {
                 errors?.userName ? "form-aut__input-error" : ""
               }`}
               id="userName"
-              required
             />
             {errors?.userName && (
               <p className="form-aut__err-message">
@@ -71,7 +70,6 @@ function Register({ logo }) {
               className={`form-aut__input form-aut__input-email ${
                 errors?.email ? "form-aut__input-error" : ""
               }`}
-              required
               id="userEmail"
             />
             {errors?.email && (
@@ -91,7 +89,6 @@ function Register({ logo }) {
               className={`form-aut__input ${
                 errors?.password ? "form-aut__input-error" : ""
               }`}
-              required
               id="userPassword"
             />
             {errors?.password && (

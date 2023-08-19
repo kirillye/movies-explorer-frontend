@@ -5,6 +5,9 @@
 .menu__item {
   display: inline;
 }
+.menu__link {
+  font-size: 12px;
+}
 
 .menu__item:first-child {
   padding-right: 30px;
@@ -68,9 +71,6 @@
 }
 
 @media (max-width: 769px) {
-  .menu__link {
-    font-size: 12px;
-  }
   .desctop-menu {
     display: none;
   }

@@ -31,8 +31,14 @@
 }
 
 .search__box {
+  cursor: pointer;
   display: flex;
   align-items: center;
+  transition: all 0.25s linear;
+}
+
+.search__box:hover {
+  opacity: 0.75;
 }
 
 .search__input {
@@ -49,6 +55,7 @@
 }
 
 .search__switch-info {
+  cursor: pointer;
   margin-left: 15px;
   color: #fff;
   font-size: 13px;

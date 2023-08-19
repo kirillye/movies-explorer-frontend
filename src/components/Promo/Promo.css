@@ -6,7 +6,7 @@
 }
 
 .promo__content {
-  padding-top: 130px;
+  padding-top: 65px;
   display: flex;
   justify-content: space-between;
 }
@@ -32,6 +32,7 @@
   max-width: 310px;
   opacity: 0.5;
   margin-bottom: 145px;
+  margin-top: 0px;
   line-height: normal;
 }
 

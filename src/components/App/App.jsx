@@ -19,6 +19,10 @@ import "./App.css";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const userData = {
+    name: "Кирилл",
+    email: "kirill.stalker.2011@mail.ru",
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -58,7 +62,7 @@ function App() {
           element={
             <>
               <Header logo={mainLogo} loggedIn={loggedIn} />
-              <Profile />
+              <Profile userData={userData} />
             </>
           }
         />

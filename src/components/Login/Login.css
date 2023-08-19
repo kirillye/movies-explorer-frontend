@@ -6,7 +6,7 @@
 }
 
 .login__title {
-  margin: 35px 0 30px;
+  margin: 35px 0 36px;
   color: #fff;
   font-size: 24px;
   font-weight: 500;
@@ -86,7 +86,7 @@
 }
 
 .form-aut__btn {
-  margin: 55px 0 15px;
+  margin: 85px 0 15px;
   border-radius: 3px;
   background: #4285f4;
   width: 100%;
@@ -98,7 +98,7 @@
 }
 
 .form-aut__btn-login {
-  margin-top: 135px;
+  margin-top: 175px;
 }
 .form-aut__input-error {
   border: 1px solid #ee3465;
@@ -117,10 +117,14 @@
     flex-direction: column;
     justify-content: space-between;
   }
+  .form-aut__input {
+    margin-top: 7px;
+  }
   .form-aut__btn-login {
     margin-top: 0;
   }
   .login__title {
+    margin: 50px 0 75px;
     text-align: center;
   }
   .login__logo {

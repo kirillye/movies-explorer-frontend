@@ -39,6 +39,11 @@
   -webkit-appearance: none;
   outline: none;
   cursor: pointer;
+  transition: all 0.25s linear;
+}
+
+.card__checkbox:hover {
+  transform: scale(1.05, 1.05);
 }
 
 .card__checkbox:checked {

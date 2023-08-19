@@ -18,7 +18,7 @@ function Navigation({ logo, loggedIn = false }) {
         <nav>
           <ul className="list menu">
             <li className="menu__item">
-              <NavLink to="/signup" className="menu__link link_color_white">
+              <NavLink to="/signup" className="menu__link  link_color_white">
                 Регистрация
               </NavLink>
             </li>
@@ -56,7 +56,7 @@ function Navigation({ logo, loggedIn = false }) {
               <li>
                 <NavLink
                   to="/profile"
-                  className="btn menu-account__link link_color_white "
+                  className="menu-account__link link_color_white "
                 >
                   <span>Аккаунт</span>
                   <div className="menu-account__image"></div>
