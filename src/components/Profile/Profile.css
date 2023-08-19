@@ -1,4 +1,5 @@
 .user__title {
+  margin: 20px 0 0;
   padding-top: 50px;
   color: #fff;
   text-align: center;
@@ -10,11 +11,8 @@
   padding-bottom: 40px;
 }
 
-.form-profile {
-}
-
 .form-profile__container {
-  margin: 125px 0 210px;
+  margin: 110px 0 203px;
 }
 
 .form-profile__label {
@@ -97,6 +95,15 @@
   padding-bottom: 15px;
 }
 
+@media (max-width: 769px) {
+  .user__title {
+    margin-top: 180px;
+  }
+  .form-profile__container {
+    margin: 86px 0 192px;
+  }
+}
+
 @media (max-width: 460px) {
   .user {
     min-height: calc(100vh - 114px);
@@ -111,5 +118,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+  .user__title {
+    margin-top: 0;
+  }
+  .form-profile__container {
+    margin-top: 68px;
   }
 }

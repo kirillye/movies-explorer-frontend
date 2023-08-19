@@ -17,7 +17,7 @@ import NotFound from "../NotFound/NotFound";
 import "./App.css";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
   const userData = {
     name: "Кирилл",
