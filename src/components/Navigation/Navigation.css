@@ -1,0 +1,149 @@
+.menu {
+  display: flex;
+}
+
+.menu__item {
+  display: inline;
+}
+.menu__link {
+  font-size: 12px;
+}
+
+.menu__item:first-child {
+  padding-right: 30px;
+}
+
+.menu__btn {
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 3px;
+  background: #3ddc84;
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.menu-movies {
+  display: flex;
+  gap: 15px;
+}
+
+.menu-movies__link {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.menu-account__link {
+  font-size: 13px;
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-account__image {
+  width: 26px;
+  height: 26px;
+  border-radius: 50px;
+  background: #313131 url("../../images/profile.svg") center center no-repeat;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu_active {
+  display: flex;
+  opacity: 1;
+  padding: 40px 0;
+  height: 100%;
+}
+
+.header-btn {
+  display: none;
+  border: 0;
+  background-color: transparent;
+  transition: all 0.25s linear;
+}
+
+@media (max-width: 769px) {
+  .desctop-menu {
+    display: none;
+  }
+  .icon-close {
+    position: fixed;
+    transition: all 0.25s linear;
+  }
+  .icon-close:hover,
+  .header-btn:hover {
+    transform: scale(1.05, 1.05);
+  }
+  .header-btn {
+    position: relative;
+    z-index: 6;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 520px;
+    height: 100%;
+    background: #202020;
+    border-left: #00000051 1px solid;
+    transition: transform 0.2s linear;
+  }
+
+  .mobile-menu__active {
+    transform: translate(-100%, 0);
+  }
+
+  .mobile-menu__movies {
+    padding: 160px 0 90px;
+    flex: 1;
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .mobile-menu__link {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+  }
+  .mobile-menu .active {
+    padding-bottom: 7px;
+    border-bottom: #fff 2px solid;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu__link {
+    font-size: 10px;
+  }
+  .menu__item:first-child {
+    padding-right: 15px;
+  }
+
+  .menu__btn {
+    padding: 7px 12px;
+  }
+}

@@ -1,0 +1,154 @@
+.about {
+  background: #202020;
+  color: #fff;
+}
+
+.about__title {
+  padding-top: 110px;
+  padding-bottom: 25px;
+  position: relative;
+}
+
+.about__title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.about__articles {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 110px;
+}
+
+.about__arcticle-title {
+  font-size: 20px;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  margin: 0 0 25px 0;
+  font-weight: 400;
+}
+
+.about__arcticle-info {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px; /* 142.857% */
+}
+
+.about__time-line {
+  height: 35px;
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(100px, 1fr) 4fr;
+  /* padding-bottom: 110px; */
+}
+
+.about__backend,
+.about__front {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.about__backend {
+  color: #000;
+  background: #3ddc84;
+}
+
+.about__front {
+  background: #303030;
+}
+
+.about__names-times {
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(100px, 1fr) 4fr;
+  padding: 15px 0 110px;
+}
+
+.about__backend-info,
+.about__front-info {
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .about__title {
+    padding-top: 90px;
+    padding-bottom: 25px;
+  }
+  .about__articles {
+    gap: 30px;
+    margin: 65px 0 90px;
+  }
+
+  .about__arcticle-info {
+    font-size: 12px;
+  }
+
+  .about__names-times {
+    padding-bottom: 90px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about__articles {
+    flex-direction: column;
+    gap: 60px;
+  }
+}
+
+@media (max-width: 360px) {
+  .about__backend,
+  .about__front,
+  .about__backend-info,
+  .about__front-info {
+    font-size: 11px;
+  }
+
+  .about__names-times {
+    padding-top: 10px;
+  }
+
+  .sub-title {
+    padding-top: 70px;
+  }
+
+  .about__line {
+    margin-bottom: 60px;
+  }
+
+  .about__title {
+    font-size: 18px;
+  }
+
+  .about__articles {
+    margin-bottom: 64px;
+  }
+
+  .about__arcticle-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .about__arcticle-info {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about__names-times {
+    padding-bottom: 70px;
+  }
+}

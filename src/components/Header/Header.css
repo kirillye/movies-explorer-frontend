@@ -1,0 +1,25 @@
+.header__up {
+  color: #fff;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-bg_color_blue {
+  background: #073042;
+}
+
+.logo {
+  transition: all 0.25s linear;
+}
+
+.logo:hover {
+  transform: scale(1.05, 1.05);
+}
+
+@media (max-width: 460px) {
+  .header__up {
+    padding: 35px 0;
+  }
+}

@@ -1,0 +1,72 @@
+.card {
+  background-color: #222;
+  border-radius: 10px;
+  filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.05));
+}
+
+.card__image {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+}
+
+.card__body {
+  padding: 15px;
+}
+
+.card__line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card__title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.card__checkbox {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background-color: inherit;
+  vertical-align: middle;
+  border: 3px solid #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s linear;
+}
+
+.card__checkbox:hover {
+  transform: scale(1.05, 1.05);
+}
+
+.card__checkbox:checked {
+  background-color: #2be080;
+}
+
+.card__info-time {
+  margin: 0;
+  color: #8b8b8b;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.card__btn-delete {
+  cursor: pointer;
+  background: url("../../images/close-icon.svg") no-repeat center;
+  height: 16px;
+  width: 16px;
+  display: block;
+  border: none;
+  transition: all 0.25s linear;
+}
+
+.card__btn-delete:hover {
+  transform: scale(1.1, 1.1);
+}

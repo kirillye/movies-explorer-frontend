@@ -1,0 +1,49 @@
+input.form-aut__input {
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 15px;
+  width: 100%;
+  color: #fff;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  background-color: #2f2f2f;
+  box-sizing: border-box;
+}
+
+.text-field__label {
+  color: #8b8b8b;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.input.form-aut__input::placeholder {
+  color: #fff;
+}
+
+.form-aut__input-email {
+  margin-bottom: 20px;
+}
+
+input.form-aut__input:-webkit-autofill,
+input.form-aut__input:-webkit-autofill:hover,
+input.form-aut__input:-webkit-autofill:focus {
+  border: 1px solid #2f2f2f;
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0px 1000px #2f2f2f inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-aut__btn {
+  margin: 70px 0 15px;
+  border-radius: 3px;
+  background: #4285f4;
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  height: 45px;
+  border: 0px;
+}

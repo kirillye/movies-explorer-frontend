@@ -1,0 +1,129 @@
+.user__title {
+  margin: 20px 0 0;
+  padding-top: 50px;
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.user__container {
+  padding-bottom: 40px;
+}
+
+.form-profile__container {
+  margin: 110px 0 203px;
+}
+
+.form-profile__label {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.form-profile__input {
+  background-color: transparent;
+  text-align: end;
+  border: 0px;
+  outline: none;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.form-profile__input::placeholder {
+  color: #fff;
+}
+
+.form-profile__input:-webkit-autofill,
+.form-profile__input:-webkit-autofill:hover,
+.form-profile__input:-webkit-autofill:focus {
+  border: 0px;
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0px 1000px #202020 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-profile__input:focus {
+  border: 0px;
+  box-shadow: rgba(92, 92, 92, 0.995) 0px 0px 1px 1px;
+}
+
+.form-profile__err-message {
+  text-align: center;
+  color: #ee3465;
+  font-size: 10px;
+  font-weight: 400;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.form-profile__last-label {
+  border-top: #424242 1px solid;
+}
+
+.form-profile__btn-submit,
+.form-profile__btn-exit {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.form-profile__btn-submit {
+  cursor: pointer;
+  border: 0px;
+  background-color: transparent;
+}
+
+.form-profile__btn-exit {
+  color: #ee3465;
+  transition: all 0.25s linear;
+}
+
+.form-profile__btn-exit:hover {
+  opacity: 0.75;
+}
+
+.form-profile__btn-li {
+  text-align: center;
+}
+
+.form-profile__btn-li:first-child {
+  padding-bottom: 15px;
+}
+
+@media (max-width: 769px) {
+  .user__title {
+    margin-top: 180px;
+  }
+  .form-profile__container {
+    margin: 86px 0 192px;
+  }
+}
+
+@media (max-width: 460px) {
+  .user {
+    min-height: calc(100vh - 114px);
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    box-sizing: border-box;
+  }
+  .form-profile {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .user__title {
+    margin-top: 0;
+  }
+  .form-profile__container {
+    margin-top: 68px;
+  }
+}
