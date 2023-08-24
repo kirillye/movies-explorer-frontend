@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 // он также может взять неограниченное число пропсов и передать их новому компоненту
 
 const ProtectedRoute = ({ element, loggedIn }) => {
-  return loggedIn ? element : <Navigate to="/sign-in" replace />;
+  return loggedIn ? element : <Navigate to="/signin" replace />;
 };
 
 export default ProtectedRoute;

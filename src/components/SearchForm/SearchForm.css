@@ -25,9 +25,19 @@
 }
 
 .search__line-switch {
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 120px;
+}
+
+.search__err-message {
+  width: 100%;
+  color: #ee3465;
+  top: 30px;
+  left: 0;
+  font-size: 12px;
+  position: absolute;
 }
 
 .search__box {
@@ -66,6 +76,14 @@
 .search__input:focus-visible {
   color: #fff;
   border-bottom: #fff 1px solid;
+}
+
+.search__input_error {
+  border-bottom: #ee3465 1px solid;
+}
+
+.search__input_error::placeholder {
+  color: #ee3465;
 }
 
 .search__switch[type="checkbox"] {
@@ -112,6 +130,9 @@
 }
 
 @media (max-width: 768px) {
+  .search__err-message {
+    text-align: center;
+  }
   .search__line-switch {
     justify-content: flex-end;
   }
