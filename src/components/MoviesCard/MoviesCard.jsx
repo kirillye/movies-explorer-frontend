@@ -26,7 +26,8 @@ function MoviesCard({
     return `${hour}ч ${min}м`;
   };
 
-  function deleteMovies() {
+  function deleteMovies(e) {
+    e.preventDefault();
     handleDeleteMovies(card._id)
       .then((res) => {})
       .catch((err) => {
@@ -56,29 +57,36 @@ function MoviesCard({
   return (
     <>
       <li className="card">
-        <article className="card__arcticle">
-          <img className="card__image" alt={card.nameRU} src={cardUrl} />
-          <div className="card__body">
-            <div className="card__line">
-              <h2 className="card__title">{card.nameRU}</h2>
-              {isSavedPage ? (
-                <button
-                  className="card__btn-delete"
-                  type="button"
-                  onClick={deleteMovies}
-                ></button>
-              ) : (
-                <input
-                  type="checkbox"
-                  className="card__checkbox"
-                  defaultChecked={inputValue}
-                  onClick={saveMovies}
-                />
-              )}
+        <a
+          href={card.trailerLink}
+          target="_blank"
+          rel="noreferrer"
+          className="card__link"
+        >
+          <article className="card__arcticle">
+            <img className="card__image" alt={card.nameRU} src={cardUrl} />
+            <div className="card__body">
+              <div className="card__line">
+                <h2 className="card__title">{card.nameRU}</h2>
+                {isSavedPage ? (
+                  <button
+                    className="card__btn-delete"
+                    type="button"
+                    onClick={deleteMovies}
+                  ></button>
+                ) : (
+                  <input
+                    type="checkbox"
+                    className="card__checkbox"
+                    defaultChecked={inputValue}
+                    onClick={saveMovies}
+                  />
+                )}
+              </div>
+              <p className="card__info-time">{durationTime()}</p>
             </div>
-            <p className="card__info-time">{durationTime()}</p>
-          </div>
-        </article>
+          </article>
+        </a>
       </li>
     </>
   );
