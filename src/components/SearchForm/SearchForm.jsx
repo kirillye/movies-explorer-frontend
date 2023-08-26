@@ -1,23 +1,68 @@
 import "./SearchForm.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function SearchForm() {
+function SearchForm({
+  isSavedPage = false,
+  handleSearch,
+  setIsLoaded,
+  handleShortInput,
+}) {
+  // Достаем данные пользователя из контекста
+  const currentUser = useContext(CurrentUserContext);
+
   const {
     register,
+    setValue,
+    getValues,
     formState: { errors, isSubmitting, isValid },
     handleSubmit,
     reset,
   } = useForm({
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const onSubmit = (data) => {
+    handleShortInput(data.checkbox);
     console.log(data);
+    setIsLoaded(true);
+    handleSearch(data.movies, data.checkbox);
   };
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const moviesSearchValue = localStorage.getItem(
+      `${currentUser.email} : moviesSearch`
+    );
+    const moviesSavedSearchValue = localStorage.getItem(
+      `${currentUser.email} : moviesSavedSearch`
+    );
+    if (
+      !isSavedPage &&
+      localStorage.getItem(`${currentUser.email} : shortMovies`) === "true"
+    ) {
+      setValue("checkbox", true);
+    }
+
+    if (!isSavedPage && moviesSearchValue) {
+      setValue("movies", moviesSearchValue);
+    }
+
+    if (isSavedPage && moviesSavedSearchValue) {
+      setValue("movies", moviesSavedSearchValue);
+    }
+
+    if (
+      isSavedPage &&
+      localStorage.getItem(`${currentUser.email} : shortSaveMovies`) === "true"
+    ) {
+      setValue("checkbox", true);
+    }
+  }, []);
 
   return (
     <section className="search">

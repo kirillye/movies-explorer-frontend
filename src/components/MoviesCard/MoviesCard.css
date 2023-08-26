@@ -23,6 +23,7 @@
 }
 
 .card__title {
+  max-width: 80%;
   color: #fff;
   font-size: 13px;
   font-weight: 500;

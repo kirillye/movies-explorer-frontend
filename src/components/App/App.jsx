@@ -20,10 +20,7 @@ import NotFound from "../NotFound/NotFound";
 import "./App.css";
 
 function App() {
-  const userData = {
-    name: "Кирилл",
-    email: "kirill.stalker.2011@mail.ru",
-  };
+  const [savedMovies, setSavedMovies] = useState([]);
 
   // информция из бд
   const [currentUser, setCurrentUser] = useState({});
@@ -31,42 +28,58 @@ function App() {
 
   // авторизация
   const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(null);
+  const [name, setName] = useState(null);
 
   // собираем ошибки
   const [regStatus, setRegStatus] = useState({
     messageError: "",
     isError: true,
   });
-
-  // Работа с карточками
-
-  const LG_ROW_CARD_COUNT = 4;
-  const MD_ROW_CARD_COUNT = 3;
-  const SM_ROW_CARD_COUNT = 2;
-
-  const LG_INITIAL_CARD_COUNT = 12;
-  const MD_INITIAL_CARD_COUNT = 9;
-  const SM_INITIAL_CARD_COUNT = 6;
-
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // ============ Функции для работы с карточками фильмов  ============
 
   // все фильмы
   const handleCards = () => {
-    moviesApi
+    return moviesApi
       .getCards()
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
+        return res;
       })
       .catch((err) => {
         return err;
       });
   };
 
-  // Избранные
+  // сохраняем фильм в избранное
+  const handleSaveMovies = (data) => {
+    return api
+      .saveMovies(data)
+      .then((newMovies) => {
+        setSavedMovies([newMovies, ...savedMovies]);
+        return newMovies;
+      })
+      .catch((err) => err);
+  };
+
+  // Удаляем из избранного
+  const handleDeleteMovies = (id) => {
+    return api
+      .deleteFromSaveMovies(id)
+      .then((res) => {
+        const newListSavedMovies = savedMovies.filter(
+          (movies) => !(id === movies.id || id === movies._id)
+        );
+        setSavedMovies(newListSavedMovies);
+        return newListSavedMovies;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   //  ============ Функции авторизации/актуализации данных пользователя  ============
 
@@ -114,56 +127,64 @@ function App() {
       .signIn(userEmail, userPassword)
       .then((res) => {
         console.log(res);
-        // setLoggedIn(true);
-        // localStorage.setItem("email", userEmail);
-        // setEmail(userEmail);
-        // navigate("/", { replace: true });
+        setLoggedIn(true);
+        setTimeout(() => {
+          navigate("/movies", { replace: true });
+        }, 1000);
       })
       .catch((err) => {
         return err;
       });
   };
 
-  // Загрузка фильмов
-  //   useEffect(() => {
-  //   if (loggedIn && currentUser) {
-  //     Promise.all([api.getUserInfo()])
-  //       .then(([userData]) => {
-  //         // const { user } = userData;
-  //         console.log(userData);
-  //         // handleCardsChange(cards);
-  //         // setCurrentUser(user);
-  //       })
-  //       .catch((err) => console.error(err));
-  //     // .finally(() => {
-  //     //   setIsLoading(false);
-  //     // });
-  //   } else {
-  //     // setIsLoading(false);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentUser, loggedIn]);
+  const handleLogOut = () => {
+    authentication
+      .signOut()
+      .then((res) => {
+        if (res) {
+          setLoggedIn(false);
+          localStorage.clear();
+          navigate("/signin");
+        } else {
+          console.log(`Не успешная попытка выйти... Попробуйте, чуть позже.`);
+        }
+      })
+      .catch((err) => {
+        console.log(`Произошла ${err}: ${err.massage}`);
+      });
+  };
 
-  // useEffect(() => {
-  //   // setIsLoading(true);
-  //   tokenCheck();
-  //   // if (loggedIn) {
-  //   //   Promise.all([api.getUserInfo()])
-  //   //     .then(([userData]) => {
-  //   //       // const { user } = userData;
-  //   //       console.log(userData);
-  //   //       // handleCardsChange(cards);
-  //   //       // setCurrentUser(user);
-  //   //     })
-  //   //     .catch((err) => console.error(err));
-  //   //   // .finally(() => {
-  //   //   //   setIsLoading(false);
-  //   //   // });
-  //   // } else {
-  //   //   // setIsLoading(false);
-  //   // }
-  //   // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [loggedIn]);
+  function handleUpdateUser(data) {
+    // setIsLoadingForm(true);
+    return api
+      .sendUserInfo(data)
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        return err;
+      })
+      .finally(() => {
+        // setIsLoadingForm(false);
+      });
+  }
+
+  useEffect(() => {
+    setIsLoading(true);
+    tokenCheck();
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getMovies()])
+        .then(([userData, movies]) => {
+          setCurrentUser(userData);
+          setSavedMovies(movies);
+        })
+        .catch((err) => console.error(err))
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -186,7 +207,12 @@ function App() {
               element={
                 <>
                   <Header logo={mainLogo} loggedIn={loggedIn} />
-                  <Movies handleCards={handleCards} />
+                  <Movies
+                    savedMovies={savedMovies}
+                    handleCards={handleCards}
+                    handleDeleteMovies={handleDeleteMovies}
+                    handleSaveMovies={handleSaveMovies}
+                  />
                   <Footer />
                 </>
               }
@@ -201,7 +227,10 @@ function App() {
               element={
                 <>
                   <Header logo={mainLogo} loggedIn={loggedIn} />
-                  <SavedMovies />
+                  <SavedMovies
+                    savedMovies={savedMovies}
+                    handleDeleteMovies={handleDeleteMovies}
+                  />
                   <Footer />
                 </>
               }
@@ -216,7 +245,10 @@ function App() {
               element={
                 <>
                   <Header logo={mainLogo} loggedIn={loggedIn} />
-                  <Profile userData={userData} />
+                  <Profile
+                    handleLogOut={handleLogOut}
+                    handleUpdateUser={handleUpdateUser}
+                  />
                 </>
               }
             ></ProtectedRoute>

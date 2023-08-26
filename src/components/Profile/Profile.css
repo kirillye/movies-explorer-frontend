@@ -82,6 +82,9 @@
 .form-profile__btn-exit {
   color: #ee3465;
   transition: all 0.25s linear;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
 }
 
 .form-profile__btn-exit:hover {
@@ -94,6 +97,17 @@
 
 .form-profile__btn-li:first-child {
   padding-bottom: 15px;
+}
+
+.form-profile__info-allert {
+  color: #ff0043;
+  margin: 15px 0 0;
+  font-size: 12px;
+}
+
+.form-profile__btn_blocked {
+  opacity: 0.75;
+  cursor: auto;
 }
 
 @media (max-width: 769px) {

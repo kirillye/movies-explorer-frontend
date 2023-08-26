@@ -64,7 +64,7 @@ class Authentication {
 }
 
 export const authentication = new Authentication({
-  url: "https://api.movies-kirill.nomoreparties.co/",
+  url: "http://localhost:4000/",
   headers: {
     "Content-Type": "application/json",
   },

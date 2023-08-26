@@ -37,7 +37,6 @@ function Login({ logo, handleLogin }) {
         }
         setErrorMessage(err);
       });
-    console.log({ errorMessage });
   };
 
   // function onSubmit(data) {

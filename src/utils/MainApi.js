@@ -17,8 +17,8 @@ class Api {
     return res.json();
   }
 
-  getCards() {
-    return this._request("cards", {
+  getMovies() {
+    return this._request("movies", {
       headers: this.headers,
       credentials: "include",
     });
@@ -31,14 +31,23 @@ class Api {
     });
   }
 
-  sendCard({ articleTitle, linkImage }) {
-    return this._request("cards", {
+  saveMovies(data) {
+    return this._request(`movies`, {
       method: "POST",
       headers: this.headers,
       credentials: "include",
       body: JSON.stringify({
-        name: articleTitle,
-        link: linkImage,
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+        movieId: data.id,
+        image: `https://api.nomoreparties.co/${data.image.url}`,
+        trailerLink: data.trailerLink,
+        thumbnail: `https://api.nomoreparties.co/${data.image.previewUrl}`,
       }),
     });
   }
@@ -59,8 +68,8 @@ class Api {
     }
   }
 
-  removeCard(id) {
-    return this._request(`cards/${id}`, {
+  deleteFromSaveMovies(id) {
+    return this._request(`movies/${id}`, {
       method: "DELETE",
       headers: this.headers,
       credentials: "include",
@@ -74,18 +83,7 @@ class Api {
       credentials: "include",
       body: JSON.stringify({
         name: data.name,
-        about: data.about,
-      }),
-    });
-  }
-
-  sendUserAvatar(avatar) {
-    return this._request("users/me/avatar", {
-      method: "PATCH",
-      headers: this.headers,
-      credentials: "include",
-      body: JSON.stringify({
-        avatar: avatar,
+        email: data.email,
       }),
     });
   }

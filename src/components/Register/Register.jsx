@@ -77,6 +77,7 @@ function Register({ logo, handleRegister }) {
             <input
               {...register("email", {
                 required: "Поле обязательно к заполнению",
+
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
                   message: "email указан некорректно",

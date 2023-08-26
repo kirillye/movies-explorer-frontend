@@ -1,26 +1,79 @@
 import "./MoviesCard.css";
 import imageContent from "../../images/image-content.jpg";
+import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function MoviesCard({ isSavedPage = false, cardInfo }) {
-  const cardUrl = `https://api.nomoreparties.co/${cardInfo.image.url} `;
+function MoviesCard({
+  isSaved = false,
+  isSavedPage = false,
+  card,
+  handleSaveMovies,
+  handleDeleteMovies,
+}) {
+  const currentUser = useContext(CurrentUserContext);
+  const [inputValue, setInputValue] = useState();
+  let cardUrl;
+  if (isSavedPage) {
+    cardUrl = card.image;
+  } else {
+    cardUrl = `https://api.nomoreparties.co/${card.image.url}`;
+  }
+
   const durationTime = function () {
-    const hour = Math.round(Number(cardInfo.duration) / 60);
-    const min = Number(cardInfo.duration) % 60;
-
+    const hour = Math.round(Number(card.duration) / 60);
+    const min = Number(card.duration) % 60;
     return `${hour}ч ${min}м`;
   };
+
+  function deleteMovies() {
+    handleDeleteMovies(card._id)
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function saveMovies() {
+    if (inputValue) {
+      return;
+    }
+    handleSaveMovies(card)
+      .then((res) => {
+        setInputValue(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    if (isSaved) {
+      setInputValue(true);
+    }
+  }, []);
+
   return (
     <>
       <li className="card">
         <article className="card__arcticle">
-          <img className="card__image" src={cardUrl} alt={cardInfo.nameRU} />
+          <img className="card__image" alt={card.nameRU} src={cardUrl} />
           <div className="card__body">
             <div className="card__line">
-              <h2 className="card__title">{cardInfo.nameRU}</h2>
+              <h2 className="card__title">{card.nameRU}</h2>
               {isSavedPage ? (
-                <button className="card__btn-delete" type="button"></button>
+                <button
+                  className="card__btn-delete"
+                  type="button"
+                  onClick={deleteMovies}
+                ></button>
               ) : (
-                <input type="checkbox" className="card__checkbox" />
+                <input
+                  type="checkbox"
+                  className="card__checkbox"
+                  defaultChecked={inputValue}
+                  onClick={saveMovies}
+                />
               )}
             </div>
             <p className="card__info-time">{durationTime()}</p>
