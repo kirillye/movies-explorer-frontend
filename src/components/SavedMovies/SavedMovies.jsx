@@ -58,7 +58,6 @@ function SavedMovies({ savedMovies, handleDeleteMovies }) {
   function handleShortMovies(checkbox) {
     setIsShortMovies(checkbox);
     if (!isShortMovies) {
-      console.log();
       localStorage.setItem(`shortSaveMovies`, true);
       setSavedMoviesListShow(filterByDuration(filtredMovies));
       filterByDuration(filtredMovies).length === 0

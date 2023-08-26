@@ -65,7 +65,6 @@ function MoviesCardList({
       const newCards = allMovies.slice(startRenderList, endRenderList);
       setShowMovieList([...showMovieList, ...newCards]);
     }
-    console.log(isHaveMore);
     if (!isHaveMore) {
       setIsNotFound(true);
     } else {

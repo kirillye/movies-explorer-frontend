@@ -2,7 +2,7 @@
 
 ## ссылка на проект
 
-https://kirillye.github.io/movies-explorer-frontend
+https://movies-kirill.nomoredomainsicu.ru
 
 ## ссылка на макет
 

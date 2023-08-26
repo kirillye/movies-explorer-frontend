@@ -27,7 +27,6 @@ function SearchForm({
 
   const onSubmit = (data) => {
     handleShortInput(data.checkbox);
-    console.log(data);
     setIsLoaded(true);
     handleSearch(data.movies, data.checkbox);
   };
@@ -35,16 +34,9 @@ function SearchForm({
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const moviesSearchValue = localStorage.getItem(
-      `${currentUser.email} : moviesSearch`
-    );
-    const moviesSavedSearchValue = localStorage.getItem(
-      `${currentUser.email} : moviesSavedSearch`
-    );
-    if (
-      !isSavedPage &&
-      localStorage.getItem(`${currentUser.email} : shortMovies`) === "true"
-    ) {
+    const moviesSearchValue = localStorage.getItem("moviesSearch");
+    const moviesSavedSearchValue = localStorage.getItem("moviesSavedSearch");
+    if (!isSavedPage && localStorage.getItem("shortMovies") === "true") {
       setValue("checkbox", true);
     }
 
@@ -56,10 +48,7 @@ function SearchForm({
       setValue("movies", moviesSavedSearchValue);
     }
 
-    if (
-      isSavedPage &&
-      localStorage.getItem(`${currentUser.email} : shortSaveMovies`) === "true"
-    ) {
+    if (isSavedPage && localStorage.getItem("shortSaveMovies") === "true") {
       setValue("checkbox", true);
     }
   }, []);

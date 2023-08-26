@@ -1,3 +1,5 @@
+import { MAIN_URL } from "./constants";
+
 class Authentication {
   constructor(config) {
     this.url = config.url;
@@ -64,7 +66,7 @@ class Authentication {
 }
 
 export const authentication = new Authentication({
-  url: "http://localhost:4000/",
+  url: MAIN_URL,
   headers: {
     "Content-Type": "application/json",
   },

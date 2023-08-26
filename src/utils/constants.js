@@ -1,4 +1,4 @@
-const MAIN_URL = "http://localhost:4000/";
+const MAIN_URL = "https://api.movies-kirill.nomoreparties.co/";
 const MOVIES_URL = "https://api.nomoreparties.co/beatfilm-movies";
 const DURATION = 40;
 
