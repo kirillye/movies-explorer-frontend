@@ -17,15 +17,18 @@ function SearchForm({
   const {
     register,
     setValue,
-    getValues,
     formState: { errors, isSubmitting, isValid },
     handleSubmit,
-    reset,
   } = useForm({
-    mode: "onChange",
+    mode: "onBlur",
   });
 
   const onSubmit = (data) => {
+    // раскомментировать для тестов отправки
+    // return new Promise((resolve) => {
+    //   setTimeout(() => resolve(), 5000);
+    // });
+
     handleShortInput(data.checkbox);
     setIsLoaded(true);
     handleSearch(data.movies, data.checkbox);
@@ -34,7 +37,7 @@ function SearchForm({
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const moviesSearchValue = localStorage.getItem("moviesSearch");
+    const moviesSearchValue = localStorage.getItem("moviesSearch") || "";
     const moviesSavedSearchValue = localStorage.getItem("moviesSavedSearch");
     if (!isSavedPage && localStorage.getItem("shortMovies") === "true") {
       setValue("checkbox", true);
@@ -68,6 +71,7 @@ function SearchForm({
               })}
               type="text"
               placeholder="Фильм"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`search__input ${
                 errors?.movies ? "search__input_error" : ""
               }`}
@@ -90,6 +94,7 @@ function SearchForm({
                 {...register("checkbox")}
                 type="checkbox"
                 id="switch"
+                disabled={isSubmitting ? "disabled" : ""}
                 className="search__switch"
               />
               <label htmlFor="switch" className="search__switch-label"></label>

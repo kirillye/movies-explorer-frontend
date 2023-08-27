@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import NotFoundError from "../NotFoundError/NotFoundError";
 import Preloader from "../Preloader/Preloader";
 import { useContext } from "react";
+import { type } from "@testing-library/user-event/dist/type";
 
 function SavedMovies({ savedMovies, handleDeleteMovies }) {
   // статус загрузки
@@ -25,15 +26,14 @@ function SavedMovies({ savedMovies, handleDeleteMovies }) {
     return listMovies.filter((item) => item.duration < 40);
   }
 
-  function filterForMovies(movies, query, checkbox) {
+  function filterForMovies(movies, query = "", checkbox) {
     const moviesByUserQuery = movies.filter((card) => {
       const ru = String(card.nameRU).toLowerCase().trim();
       const en = String(card.nameEN).toLowerCase().trim();
       const Movies = query.toLowerCase().trim();
       return ru.indexOf(Movies) !== -1 || en.indexOf(Movies) !== -1;
     });
-
-    if (checkbox) {
+    if (checkbox === "true" || checkbox === true) {
       return filterByDuration(moviesByUserQuery);
     } else {
       return moviesByUserQuery;
@@ -44,7 +44,6 @@ function SavedMovies({ savedMovies, handleDeleteMovies }) {
   function handleSearch(inputValue, checkbox) {
     localStorage.setItem(`shortSaveMovies`, checkbox);
     const moviesList = filterForMovies(savedMovies, inputValue, checkbox);
-    localStorage.setItem(`listSavedMovies`, JSON.stringify(moviesList));
     localStorage.setItem(`moviesSavedSearch`, inputValue);
     if (!moviesList.length) {
       setErrorNotFound(true);
@@ -72,25 +71,32 @@ function SavedMovies({ savedMovies, handleDeleteMovies }) {
     }
   }
 
+  // проверка чекбокса в локальном хранилище
   useEffect(() => {
-    localStorage.setItem(`listSavedMovies`, JSON.stringify(savedMovies));
-  }, [savedMovies]);
-
-  // подгружаем фильмы из локального хранилища
-  useEffect(() => {
-    if (localStorage.getItem(`listSavedMovies`)) {
-      const movies = JSON.parse(localStorage.getItem(`listSavedMovies`));
-      if (!movies.length) {
-        setErrorNotFound(true);
-      }
-      setSavedMoviesListShow(movies);
-      if (localStorage.getItem(`shortSaveMovies`) === true) {
-        setIsFiltredMovies(filterByDuration(movies));
-      } else {
-        setIsFiltredMovies(movies);
-      }
+    const query = localStorage.getItem("moviesSavedSearch");
+    const checkBox = localStorage.getItem("shortSaveMovies");
+    if (query) {
+      setSavedMoviesListShow(filterForMovies(savedMovies, query, checkBox));
+    }
+    if (checkBox) {
+      // setSavedMoviesListShow(filterByDuration(savedMoviesListShow));
+      setIsShortMovies(true);
+    } else {
+      setIsShortMovies(false);
     }
   }, [savedMovies]);
+
+  useEffect(() => {
+    // console.log(savedMovies.length, savedMoviesListShow.length);
+    if (!savedMovies.length) {
+      setErrorNotFound(true);
+    } else {
+      setErrorNotFound(false);
+    }
+    if (!savedMoviesListShow.length) {
+      setErrorNotFound(true);
+    }
+  }, [savedMovies, savedMoviesListShow]);
 
   return (
     <main className="main">
@@ -110,7 +116,7 @@ function SavedMovies({ savedMovies, handleDeleteMovies }) {
           ) : (
             <MoviesCardList
               isSavedPage={true}
-              savedMovies={savedMoviesListShow}
+              savedMovies={savedMovies}
               allMovies={savedMoviesListShow}
               handleDeleteMovies={handleDeleteMovies}
             />

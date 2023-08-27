@@ -30,12 +30,38 @@ function MoviesCardList({
   const endRenderList = startRenderList + cardsShowDetails.ROW_CARD_COUNT;
   const isHaveMore = allMovies.length - startRenderList;
 
+  // подгружаем карточки
+  function handleClickMoreMovies() {
+    if (isHaveMore > 0) {
+      const newCards = allMovies.slice(startRenderList, endRenderList);
+      setShowMovieList([...showMovieList, ...newCards]);
+    }
+    if (!isHaveMore) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
+  }
+
+  // проверка сохраненных
+  function checkSavedMovies(savedMovies, movie) {
+    const isSaved = savedMovies.find((item) => item.movieId === movie.id);
+    if (isSaved) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // количество отображаемых карточек при разной ширине экрана
   useEffect(() => {
     if (!isSavedPage) {
-      if (size.width > 1100) {
+      if (size.width > DEVICE_SIZE_WINDOWS.desctop.WIDTH) {
         setCardsShowDetails(DEVICE_SIZE_WINDOWS.desctop);
-      } else if (size.width <= 1100 && size.width > 460) {
+      } else if (
+        size.width <= DEVICE_SIZE_WINDOWS.laptop.WIDTH &&
+        size.width > DEVICE_SIZE_WINDOWS.mobile.WIDTH
+      ) {
         setCardsShowDetails(DEVICE_SIZE_WINDOWS.laptop);
       } else {
         setCardsShowDetails(DEVICE_SIZE_WINDOWS.mobile);
@@ -59,50 +85,29 @@ function MoviesCardList({
     }
   }, [allMovies, cardsShowDetails.INITIAL_CARD_COUNT]);
 
-  // подгружаем карточки
-  function handleClickMoreMovies() {
-    if (isHaveMore > 0) {
-      const newCards = allMovies.slice(startRenderList, endRenderList);
-      setShowMovieList([...showMovieList, ...newCards]);
-    }
-    if (!isHaveMore) {
-      setIsNotFound(true);
-    } else {
-      setIsNotFound(false);
-    }
-  }
-
-  function checkSavedMovies(savedMovies, movie) {
-    const isSaved = savedMovies.find((item) => item.movieId === movie.id);
-    if (isSaved) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   return (
-    <>
-      <section className="movies container-padding-small">
-        {isLoading ? (
-          <Preloader />
-        ) : (
-          <ul className="list movies__grid">
-            {showMovieList.map((card) => (
-              <MoviesCard
-                isSaved={checkSavedMovies(savedMovies, card)}
-                isSavedPage={isSavedPage}
-                key={card?.id || card._id}
-                card={card}
-                handleSaveMovies={handleSaveMovies}
-                handleDeleteMovies={handleDeleteMovies}
-                deleteMoviesFromLocal={deleteMoviesFromLocal}
-                setUpdate={setUpdate}
-              />
-            ))}
-          </ul>
-        )}
-        {!isNotFound && (
+    <section className="movies container-padding-small">
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <ul className="list movies__grid">
+          {showMovieList.map((card) => (
+            <MoviesCard
+              isSaved={checkSavedMovies(savedMovies, card)}
+              isSavedPage={isSavedPage}
+              key={card?.id || card._id}
+              card={card}
+              handleSaveMovies={handleSaveMovies}
+              handleDeleteMovies={handleDeleteMovies}
+              deleteMoviesFromLocal={deleteMoviesFromLocal}
+              setUpdate={setUpdate}
+            />
+          ))}
+        </ul>
+      )}
+      {!isSavedPage &&
+        showMovieList.length >= 5 &&
+        showMovieList.length < allMovies.length && (
           <div className="block-btn">
             <button
               className="block-btn__button btn"
@@ -113,8 +118,7 @@ function MoviesCardList({
             </button>
           </div>
         )}
-      </section>
-    </>
+    </section>
   );
 }
 

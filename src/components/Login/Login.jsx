@@ -1,7 +1,8 @@
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { validateEmail } from "../../utils/constants";
 
 function Login({ logo, handleLogin }) {
   const {
@@ -15,6 +16,11 @@ function Login({ logo, handleLogin }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
+    // раскомментировать для тестов отправки
+    // return new Promise((resolve) => {
+    //   setTimeout(() => resolve(), 5000);
+    // });
+
     const userEmail = data.email;
     const userPassword = data.password;
     handleLogin(userEmail, userPassword)
@@ -39,15 +45,6 @@ function Login({ logo, handleLogin }) {
       });
   };
 
-  // function onSubmit(data) {
-  //   // return promise that resolves after 2 seconds
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, 2000);
-  //   });
-  // }
-
   return (
     <main className="main">
       <section className="container-mini login">
@@ -64,12 +61,13 @@ function Login({ logo, handleLogin }) {
               {...register("email", {
                 required: "Поле обязательно к заполнению",
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                  value: validateEmail,
                   message: "email указан некорректно",
                 },
               })}
               placeholder="Email"
               type="email"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input form-aut__input-email ${
                 errors?.email ? "form-aut__input-error" : ""
               }`}
@@ -93,6 +91,7 @@ function Login({ logo, handleLogin }) {
               })}
               placeholder="Пароль"
               type="password"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input ${
                 errors?.password ? "form-aut__input-error" : ""
               }`}
@@ -115,6 +114,7 @@ function Login({ logo, handleLogin }) {
                 (isSubmitting || !isValid) && "form-aut__btn-login_blocked"
               }`}
             >
+              {isSubmitting}
               {isSubmitting ? "Авторизация..." : "Войти"}
             </button>
             <span className="info-autorization__alert">

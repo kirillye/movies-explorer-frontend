@@ -1,26 +1,31 @@
 import "./Profile.css";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile({ handleLogOut, handleUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-
+  const userName = currentUser.name;
+  const userEmail = currentUser.email;
   const [errorMessage, setErrorMessage] = useState("");
-
   const {
     register,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
     handleSubmit,
   } = useForm({
     mode: "onSubmit",
     defaultValues: {
-      name: currentUser.name,
-      email: currentUser.email,
+      name: userName,
+      email: userEmail,
     },
   });
-
   const onSubmit = (data) => {
+    // раскомментировать для тестов отправки
+    // return new Promise((resolve) => {
+    //   setTimeout(() => resolve(), 5000);
+    // });
+
     if (currentUser.name === data.name && currentUser.email === data.email) {
       setErrorMessage("Данные формы не были обновлены");
     } else {
@@ -45,7 +50,9 @@ function Profile({ handleLogOut, handleUpdateUser }) {
     handleLogOut();
   }
 
-  // useEffect(() => {}, [currentUser]);
+  useEffect(() => {
+    reset(currentUser);
+  }, [currentUser]);
 
   return (
     <main className="main">
@@ -71,6 +78,7 @@ function Profile({ handleLogOut, handleUpdateUser }) {
                     message: "Максимум 30 символов", // JS only: <p>error message</p> TS only support string
                   },
                 })}
+                disabled={isSubmitting ? "disabled" : ""}
                 className={`form-profile__input ${
                   errors?.name ? "form-profile__input-error" : ""
                 }`}
@@ -92,6 +100,7 @@ function Profile({ handleLogOut, handleUpdateUser }) {
                     message: "email указан некорректно",
                   },
                 })}
+                disabled={isSubmitting ? "disabled" : ""}
                 className={`form-profile__input ${
                   errors?.email ? "form-profile__input-error" : ""
                 }`}
@@ -113,12 +122,12 @@ function Profile({ handleLogOut, handleUpdateUser }) {
             <li className="form-profile__btn-li">
               <button
                 type="submit"
-                disabled={isSubmitting && true}
+                disabled={isSubmitting || !isDirty}
                 className={`form-profile__btn-submit link_color_white ${
-                  (isSubmitting || errorMessage) && "form-profile__btn_blocked"
+                  (isSubmitting || !isDirty) && "form-profile__btn_blocked"
                 }`}
               >
-                Редактировать
+                {isSubmitting ? "Обновление..." : "Редактировать"}
               </button>
             </li>
             <li className="form-profile__btn-li">

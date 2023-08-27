@@ -12,7 +12,7 @@ function MoviesCard({
   handleDeleteMovies,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const [inputValue, setInputValue] = useState();
+  const [inputValue, setInputValue] = useState(isSaved);
   let cardUrl;
   if (isSavedPage) {
     cardUrl = card.image;
@@ -41,7 +41,15 @@ function MoviesCard({
     }
     handleSaveMovies(card)
       .then((res) => {
-        setInputValue(true);
+        if (res?.includes("Ошибка")) {
+          alert(
+            "Простите карточка не может быть добавлена в сохраненное.. Что-то пошло не так.. ("
+          );
+          setInputValue(false);
+          return;
+        } else {
+          setInputValue(true);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -49,46 +57,42 @@ function MoviesCard({
   }
 
   useEffect(() => {
-    if (isSaved) {
-      setInputValue(true);
-    }
-  }, []);
+    setInputValue(isSaved);
+  }, [isSaved]);
 
   return (
-    <>
-      <li className="card">
-        <a
-          href={card.trailerLink}
-          target="_blank"
-          rel="noreferrer"
-          className="card__link"
-        >
-          <article className="card__arcticle">
-            <img className="card__image" alt={card.nameRU} src={cardUrl} />
-            <div className="card__body">
-              <div className="card__line">
-                <h2 className="card__title">{card.nameRU}</h2>
-                {isSavedPage ? (
-                  <button
-                    className="card__btn-delete"
-                    type="button"
-                    onClick={deleteMovies}
-                  ></button>
-                ) : (
-                  <input
-                    type="checkbox"
-                    className="card__checkbox"
-                    defaultChecked={inputValue}
-                    onClick={saveMovies}
-                  />
-                )}
-              </div>
-              <p className="card__info-time">{durationTime()}</p>
+    <li className="card">
+      <a
+        href={card.trailerLink}
+        target="_blank"
+        rel="noreferrer"
+        className="card__link"
+      >
+        <article className="card__arcticle">
+          <img className="card__image" alt={card.nameRU} src={cardUrl} />
+          <div className="card__body">
+            <div className="card__line">
+              <h2 className="card__title">{card.nameRU}</h2>
+              {isSavedPage ? (
+                <button
+                  className="card__btn-delete"
+                  type="button"
+                  onClick={deleteMovies}
+                ></button>
+              ) : (
+                <input
+                  type="checkbox"
+                  className="card__checkbox"
+                  checked={inputValue}
+                  onChange={saveMovies}
+                />
+              )}
             </div>
-          </article>
-        </a>
-      </li>
-    </>
+            <p className="card__info-time">{durationTime()}</p>
+          </div>
+        </article>
+      </a>
+    </li>
   );
 }
 

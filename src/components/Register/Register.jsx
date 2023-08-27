@@ -2,8 +2,9 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { validateEmail } from "../../utils/constants";
 
-function Register({ logo, handleRegister }) {
+function Register({ logo, handleRegister, handleLogin }) {
   const {
     register,
     formState: { errors, isSubmitting, isValid },
@@ -16,6 +17,11 @@ function Register({ logo, handleRegister }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
+    // раскомментировать для тестов отправки
+    // return new Promise((resolve) => {
+    //   setTimeout(() => resolve(), 5000);
+    // });
+
     const email = data.email;
     const password = data.password;
     const name = data.userName;
@@ -64,6 +70,7 @@ function Register({ logo, handleRegister }) {
               className={`form-aut__input form-aut__input-user ${
                 errors?.userName ? "form-aut__input-error" : ""
               }`}
+              disabled={isSubmitting ? "disabled" : ""}
               id="userName"
             />
             {errors?.userName && (
@@ -77,14 +84,14 @@ function Register({ logo, handleRegister }) {
             <input
               {...register("email", {
                 required: "Поле обязательно к заполнению",
-
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                  value: validateEmail,
                   message: "email указан некорректно",
                 },
               })}
               placeholder="Email"
               type="email"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input form-aut__input-email ${
                 errors?.email ? "form-aut__input-error" : ""
               }`}
@@ -108,6 +115,7 @@ function Register({ logo, handleRegister }) {
               })}
               placeholder="Пароль"
               type="password"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input ${
                 errors?.password ? "form-aut__input-error" : ""
               }`}

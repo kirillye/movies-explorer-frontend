@@ -32,6 +32,10 @@
   gap: 15px;
 }
 
+.desctop-menu .active {
+  opacity: 0.75;
+}
+
 .menu-movies__link {
   font-size: 13px;
   line-height: 18px;

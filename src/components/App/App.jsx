@@ -1,6 +1,12 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import mainLogo from "../../images/logo.svg";
 import { api } from "../../utils/MainApi";
@@ -28,16 +34,10 @@ function App() {
 
   // авторизация
   const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState(null);
-  const [name, setName] = useState(null);
 
-  // собираем ошибки
-  const [regStatus, setRegStatus] = useState({
-    messageError: "",
-    isError: true,
-  });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // ============ Функции для работы с карточками фильмов  ============
 
@@ -84,12 +84,14 @@ function App() {
   //  ============ Функции авторизации/актуализации данных пользователя  ============
 
   const tokenCheck = () => {
+    if (location.state?.from) {
+      navigate(location.state.from);
+    }
     authentication
       .tokenCheck()
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate("/", { replace: true });
         } else {
           setLoggedIn(false);
         }
@@ -105,19 +107,19 @@ function App() {
     return authentication
       .signUp(email, password, name)
       .then((res) => {
-        setRegStatus({
-          messageError: "",
-          isError: false,
-        });
-        setTimeout(() => {
-          navigate("/signin", { replace: true });
-        }, 1000);
+        handleLogin(email, password)
+          .then(() => {
+            setLoggedIn(true);
+            navigate("/movies", { replace: true });
+          })
+          .catch((err) => {
+            console.log(err);
+            setTimeout(() => {
+              navigate("/signin", { replace: true });
+            }, 300);
+          });
       })
       .catch((err) => {
-        setRegStatus({
-          messageError: "",
-          isError: true,
-        });
         return err;
       });
   };
@@ -126,11 +128,8 @@ function App() {
     return authentication
       .signIn(userEmail, userPassword)
       .then((res) => {
-        console.log(res);
         setLoggedIn(true);
-        setTimeout(() => {
-          navigate("/movies", { replace: true });
-        }, 1000);
+        navigate("/movies", { replace: true });
       })
       .catch((err) => {
         return err;
@@ -144,7 +143,9 @@ function App() {
         if (res) {
           setLoggedIn(false);
           localStorage.clear();
-          navigate("/signin");
+          setTimeout(() => {
+            navigate("/", { replace: true });
+          }, 300);
         } else {
           console.log(`Не успешная попытка выйти... Попробуйте, чуть позже.`);
         }
@@ -260,7 +261,13 @@ function App() {
         />
         <Route
           path="/signup"
-          element={<Register logo={mainLogo} handleRegister={handleRegister} />}
+          element={
+            <Register
+              logo={mainLogo}
+              handleRegister={handleRegister}
+              handleLogin={handleLogin}
+            />
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

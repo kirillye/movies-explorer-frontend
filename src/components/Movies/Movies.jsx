@@ -49,19 +49,21 @@ function Movies({
     }
     setMoviesListInitial(list);
     setMoviesFiltred(checkbox ? filterByDuration(list) : list);
-    localStorage.setItem(`movies`, JSON.stringify(list));
+    localStorage.setItem("movies", JSON.stringify(list));
   }
 
   // поиск по запросу
   function handleSearch(inputValue, checkbox) {
-    localStorage.setItem(`moviesSearch`, inputValue);
-    localStorage.setItem(`shortMovies`, checkbox);
-    // localStorage.setItem("Inveris@mail.ru", inputValueShort);
+    localStorage.setItem("moviesSearch", inputValue);
+    localStorage.setItem("shortMovies", checkbox);
     if (allMovies.length === 0) {
       setIsLoading(true);
       handleCards()
         .then((movies) => {
+          // localStorage.setItem("movies", JSON.stringify(movies));
           setAllMovies(movies);
+          handleFilteredMovies(movies, inputValue, checkbox);
+          console.log(movies);
         })
         .catch((err) => {
           setError("Во время запроса произошла ошибка");
@@ -93,6 +95,14 @@ function Movies({
     return listMovies.filter((item) => item.duration < 40);
   }
 
+  useEffect(() => {
+    if (localStorage.getItem("shortMovies") === "true") {
+      setIsShortMovies(true);
+    } else {
+      setIsShortMovies(false);
+    }
+  }, [currentUser]);
+
   // подгружаем фильмы из локального хранилища
   useEffect(() => {
     if (localStorage.getItem(`movies`)) {
@@ -104,7 +114,7 @@ function Movies({
         setMoviesFiltred(movies);
       }
     }
-  }, [currentUser, allMovies]);
+  }, [currentUser]);
 
   return (
     <main className="main">
