@@ -1,4 +1,8 @@
-# 3 Этап дипломной работы: верстка и JSX
+# 4 Этап дипломной работы: верстка и JSX
+
+## ссылка pull request
+
+https://github.com/kirillye/movies-explorer-frontend/pull/2
 
 ## ссылка на проект
 
