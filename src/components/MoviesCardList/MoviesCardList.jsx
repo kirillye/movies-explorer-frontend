@@ -46,11 +46,19 @@ function MoviesCardList({
   // проверка сохраненных
   function checkSavedMovies(savedMovies, movie) {
     const isSaved = savedMovies.find((item) => item.movieId === movie.id);
+    let cardSavedInfo;
     if (isSaved) {
-      return true;
+      cardSavedInfo = {
+        isSaved: true,
+        id: isSaved._id,
+      };
     } else {
-      return false;
+      cardSavedInfo = {
+        isSaved: false,
+        id: null,
+      };
     }
+    return cardSavedInfo;
   }
 
   // количество отображаемых карточек при разной ширине экрана
@@ -72,6 +80,10 @@ function MoviesCardList({
 
   // отслеживаем изменение экрана
   useEffect(() => {
+    if (isSavedPage) {
+      setShowMovieList(allMovies);
+      return;
+    }
     if (allMovies.length) {
       const res = allMovies.filter(
         (item, i) => i < cardsShowDetails.INITIAL_CARD_COUNT
@@ -93,9 +105,10 @@ function MoviesCardList({
         <ul className="list movies__grid">
           {showMovieList.map((card) => (
             <MoviesCard
-              isSaved={checkSavedMovies(savedMovies, card)}
+              savedCard={checkSavedMovies(savedMovies, card)}
+              // isSavedId={savedMovies, card)}
               isSavedPage={isSavedPage}
-              key={card?.id || card._id}
+              key={card?._id || card.id}
               card={card}
               handleSaveMovies={handleSaveMovies}
               handleDeleteMovies={handleDeleteMovies}

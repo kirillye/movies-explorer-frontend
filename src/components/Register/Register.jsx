@@ -17,28 +17,25 @@ function Register({ logo, handleRegister, handleLogin }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
-    // раскомментировать для тестов отправки
-    // return new Promise((resolve) => {
-    //   setTimeout(() => resolve(), 5000);
-    // });
-
-    const email = data.email;
-    const password = data.password;
-    const name = data.userName;
-    handleRegister(email, password, name)
-      .then((res) => {
-        if (res == "Ошибка: 409") {
-          return setErrorMessage("Email уже зарегистрирован");
-        }
-        if (typeof res && res?.includes("Ошибка")) {
-          return setErrorMessage("Что-то пошло не так.. (");
-        }
-        setErrorMessage(null);
-        reset();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return new Promise((resolve) => {
+      const email = data.email;
+      const password = data.password;
+      const name = data.userName;
+      handleRegister(email, password, name)
+        .then((res) => {
+          if (res == "Ошибка: 409") {
+            return setErrorMessage("Email уже зарегистрирован");
+          }
+          if (typeof res && res?.includes("Ошибка")) {
+            return setErrorMessage("Что-то пошло не так.. (");
+          }
+          setErrorMessage(null);
+          reset();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
 
   return (

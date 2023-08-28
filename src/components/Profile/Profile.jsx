@@ -21,29 +21,26 @@ function Profile({ handleLogOut, handleUpdateUser }) {
     },
   });
   const onSubmit = (data) => {
-    // раскомментировать для тестов отправки
-    // return new Promise((resolve) => {
-    //   setTimeout(() => resolve(), 5000);
-    // });
-
-    if (currentUser.name === data.name && currentUser.email === data.email) {
-      setErrorMessage("Данные формы не были обновлены");
-    } else {
-      handleUpdateUser(data)
-        .then((result) => {
-          if (result === "Ошибка: 400") {
-            return setErrorMessage(
-              "Пользователь с такой электронной почтой уже существует"
-            );
-          }
-          alert("данные обновлены");
-          setErrorMessage("");
-        })
-        .catch((err) => {
-          setErrorMessage(err);
-          setErrorMessage("Что-то пошло не так, попробуйте чуть позже...");
-        });
-    }
+    return new Promise((resolve) => {
+      if (currentUser.name === data.name && currentUser.email === data.email) {
+        setErrorMessage("Данные формы не были обновлены");
+      } else {
+        handleUpdateUser(data)
+          .then((result) => {
+            if (result === "Ошибка: 400") {
+              return setErrorMessage(
+                "Пользователь с такой электронной почтой уже существует"
+              );
+            }
+            alert("данные обновлены");
+            setErrorMessage("");
+          })
+          .catch((err) => {
+            setErrorMessage(err);
+            setErrorMessage("Что-то пошло не так, попробуйте чуть позже...");
+          });
+      }
+    });
   };
 
   function signOut() {

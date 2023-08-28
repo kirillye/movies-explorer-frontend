@@ -23,6 +23,7 @@ import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import NotFound from "../NotFound/NotFound";
+import Anonymous from "../Anonymous/Anonymous";
 import "./App.css";
 
 function App() {
@@ -137,7 +138,7 @@ function App() {
   };
 
   const handleLogOut = () => {
-    authentication
+    return authentication
       .signOut()
       .then((res) => {
         if (res) {
@@ -255,20 +256,22 @@ function App() {
             ></ProtectedRoute>
           }
         />
-        <Route
-          path="/signin"
-          element={<Login logo={mainLogo} handleLogin={handleLogin} />}
-        />
-        <Route
-          path="/signup"
-          element={
-            <Register
-              logo={mainLogo}
-              handleRegister={handleRegister}
-              handleLogin={handleLogin}
-            />
-          }
-        />
+        <Route element={<Anonymous loggedIn={loggedIn} />}>
+          <Route
+            path="/signin"
+            element={<Login logo={mainLogo} handleLogin={handleLogin} />}
+          />
+          <Route
+            path="/signup"
+            element={
+              <Register
+                logo={mainLogo}
+                handleRegister={handleRegister}
+                handleLogin={handleLogin}
+              />
+            }
+          />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </CurrentUserContext.Provider>

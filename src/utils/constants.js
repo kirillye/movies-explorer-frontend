@@ -22,4 +22,28 @@ const DEVICE_SIZE_WINDOWS = {
   },
 };
 
-export { MOVIES_URL, MAIN_URL, DURATION, DEVICE_SIZE_WINDOWS, validateEmail };
+//фильтр по запросу
+function filterForMovies(movies, query = "") {
+  const moviesByUserQuery = movies.filter((movie) => {
+    const movieRu = String(movie.nameRU).toLowerCase().trim();
+    const movieEn = String(movie.nameEN).toLowerCase().trim();
+    const Movies = query.toLowerCase().trim();
+    return movieRu.indexOf(Movies) !== -1 || movieEn.indexOf(Movies) !== -1;
+  });
+  return moviesByUserQuery;
+}
+
+// фильтрация по времени
+function filterByDuration(listMovies) {
+  return listMovies.filter((item) => item.duration < 40);
+}
+
+export {
+  MOVIES_URL,
+  MAIN_URL,
+  DURATION,
+  DEVICE_SIZE_WINDOWS,
+  validateEmail,
+  filterForMovies,
+  filterByDuration,
+};

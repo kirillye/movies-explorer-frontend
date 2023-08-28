@@ -16,33 +16,30 @@ function Login({ logo, handleLogin }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
-    // раскомментировать для тестов отправки
-    // return new Promise((resolve) => {
-    //   setTimeout(() => resolve(), 5000);
-    // });
-
-    const userEmail = data.email;
-    const userPassword = data.password;
-    handleLogin(userEmail, userPassword)
-      .then((res) => {
-        if (typeof res && res?.includes("логин")) {
-          return setErrorMessage("Логин или пароль не верен");
-        }
-        if (typeof res && res?.includes("пароль")) {
-          return setErrorMessage("Логин или пароль не верен");
-        }
-        if (typeof res && res?.includes("Ошибка")) {
-          return setErrorMessage("Что-то пошло не так.. (");
-        }
-        setErrorMessage(null);
-        reset();
-      })
-      .catch((err) => {
-        if (err === "Ошибка: 401") {
-          return setErrorMessage("Логин или пароль не верен");
-        }
-        setErrorMessage(err);
-      });
+    return new Promise((resolve) => {
+      const userEmail = data.email;
+      const userPassword = data.password;
+      handleLogin(userEmail, userPassword)
+        .then((res) => {
+          if (typeof res && res?.includes("логин")) {
+            return setErrorMessage("Логин или пароль не верен");
+          }
+          if (typeof res && res?.includes("пароль")) {
+            return setErrorMessage("Логин или пароль не верен");
+          }
+          if (typeof res && res?.includes("Ошибка")) {
+            return setErrorMessage("Что-то пошло не так.. (");
+          }
+          setErrorMessage(null);
+          reset();
+        })
+        .catch((err) => {
+          if (err === "Ошибка: 401") {
+            return setErrorMessage("Логин или пароль не верен");
+          }
+          setErrorMessage(err);
+        });
+    });
   };
 
   return (
@@ -114,7 +111,6 @@ function Login({ logo, handleLogin }) {
                 (isSubmitting || !isValid) && "form-aut__btn-login_blocked"
               }`}
             >
-              {isSubmitting}
               {isSubmitting ? "Авторизация..." : "Войти"}
             </button>
             <span className="info-autorization__alert">

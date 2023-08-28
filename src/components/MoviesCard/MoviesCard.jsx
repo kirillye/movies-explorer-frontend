@@ -5,14 +5,17 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function MoviesCard({
-  isSaved = false,
+  savedCard = {
+    isSaved: false,
+    id: null,
+  },
   isSavedPage = false,
   card,
   handleSaveMovies,
   handleDeleteMovies,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const [inputValue, setInputValue] = useState(isSaved);
+  const [inputValue, setInputValue] = useState(savedCard.isSaved);
   let cardUrl;
   if (isSavedPage) {
     cardUrl = card.image;
@@ -26,9 +29,13 @@ function MoviesCard({
     return `${hour}ч ${min}м`;
   };
 
-  function deleteMovies(e) {
+  function handleClickDeleteBtn(e) {
     e.preventDefault();
-    handleDeleteMovies(card._id)
+    deleteMovies(card._id);
+  }
+
+  function deleteMovies(id) {
+    handleDeleteMovies(id)
       .then((res) => {})
       .catch((err) => {
         console.log(err);
@@ -37,8 +44,10 @@ function MoviesCard({
 
   function saveMovies() {
     if (inputValue) {
+      deleteMovies(savedCard.id);
       return;
     }
+
     handleSaveMovies(card)
       .then((res) => {
         if (res?.includes("Ошибка")) {
@@ -57,8 +66,8 @@ function MoviesCard({
   }
 
   useEffect(() => {
-    setInputValue(isSaved);
-  }, [isSaved]);
+    setInputValue(savedCard.isSaved);
+  }, [savedCard]);
 
   return (
     <li className="card">
@@ -77,7 +86,7 @@ function MoviesCard({
                 <button
                   className="card__btn-delete"
                   type="button"
-                  onClick={deleteMovies}
+                  onClick={handleClickDeleteBtn}
                 ></button>
               ) : (
                 <input

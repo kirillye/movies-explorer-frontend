@@ -8,8 +8,10 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 function SearchForm({
   isSavedPage = false,
   handleSearch,
+  handleShortMovies,
+  isShortMovies,
   setIsLoaded,
-  handleShortInput,
+  onSearchMovies,
 }) {
   // Достаем данные пользователя из контекста
   const currentUser = useContext(CurrentUserContext);
@@ -20,18 +22,14 @@ function SearchForm({
     formState: { errors, isSubmitting, isValid },
     handleSubmit,
   } = useForm({
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
   const onSubmit = (data) => {
-    // раскомментировать для тестов отправки
-    // return new Promise((resolve) => {
-    //   setTimeout(() => resolve(), 5000);
-    // });
-
-    handleShortInput(data.checkbox);
-    setIsLoaded(true);
-    handleSearch(data.movies, data.checkbox);
+    return new Promise((resolve) => {
+      const val = handleSearch(data.movies, data.checkbox);
+      resolve(val);
+    });
   };
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -45,14 +43,6 @@ function SearchForm({
 
     if (!isSavedPage && moviesSearchValue) {
       setValue("movies", moviesSearchValue);
-    }
-
-    if (isSavedPage && moviesSavedSearchValue) {
-      setValue("movies", moviesSavedSearchValue);
-    }
-
-    if (isSavedPage && localStorage.getItem("shortSaveMovies") === "true") {
-      setValue("checkbox", true);
     }
   }, []);
 
@@ -92,6 +82,10 @@ function SearchForm({
             <div className="search__box">
               <input
                 {...register("checkbox")}
+                onChange={(e) => {
+                  setValue("checkbox", e.target.checked);
+                  handleShortMovies(e.target.checked);
+                }}
                 type="checkbox"
                 id="switch"
                 disabled={isSubmitting ? "disabled" : ""}
