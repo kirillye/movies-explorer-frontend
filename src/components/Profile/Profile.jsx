@@ -1,33 +1,60 @@
 import "./Profile.css";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ userData }) {
+function Profile({ handleLogOut, handleUpdateUser }) {
+  const currentUser = useContext(CurrentUserContext);
+  const userName = currentUser.name;
+  const userEmail = currentUser.email;
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
-    formState: { errors },
-    handleSubmit,
     reset,
-    setValue,
+    formState: { errors, isSubmitting, isDirty },
+    handleSubmit,
   } = useForm({
     mode: "onSubmit",
     defaultValues: {
-      name: userData.name,
-      email: userData.email,
+      name: userName,
+      email: userEmail,
     },
   });
-
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log("Форма успешно отправлена");
-    reset();
+    return new Promise((resolve) => {
+      if (currentUser.name === data.name && currentUser.email === data.email) {
+        setErrorMessage("Данные формы не были обновлены");
+      } else {
+        handleUpdateUser(data)
+          .then((result) => {
+            if (result === "Ошибка: 400") {
+              return setErrorMessage(
+                "Пользователь с такой электронной почтой уже существует"
+              );
+            }
+            alert("данные обновлены");
+            setErrorMessage("");
+          })
+          .catch((err) => {
+            setErrorMessage(err);
+            setErrorMessage("Что-то пошло не так, попробуйте чуть позже...");
+          });
+      }
+    });
   };
+
+  function signOut() {
+    handleLogOut();
+  }
+
+  useEffect(() => {
+    reset(currentUser);
+  }, [currentUser]);
 
   return (
     <main className="main">
       <section className="user container-mini user__container">
-        <h1 className="user__title">Привет, {userData.name}</h1>
+        <h1 className="user__title">Привет, {currentUser.name}</h1>
         <form
           className="form-profile"
           onSubmit={handleSubmit(onSubmit)}
@@ -48,6 +75,7 @@ function Profile({ userData }) {
                     message: "Максимум 30 символов", // JS only: <p>error message</p> TS only support string
                   },
                 })}
+                disabled={isSubmitting ? "disabled" : ""}
                 className={`form-profile__input ${
                   errors?.name ? "form-profile__input-error" : ""
                 }`}
@@ -56,7 +84,7 @@ function Profile({ userData }) {
             </label>
             {errors?.name && (
               <p className="form-profile__err-message">
-                {errors?.name.message || "Что-то пошло не так..."}
+                {errors?.name.message || "Проверьте заполнено ли поле"}
               </p>
             )}
             <label className="form-profile__label form-profile__last-label">
@@ -69,6 +97,7 @@ function Profile({ userData }) {
                     message: "email указан некорректно",
                   },
                 })}
+                disabled={isSubmitting ? "disabled" : ""}
                 className={`form-profile__input ${
                   errors?.email ? "form-profile__input-error" : ""
                 }`}
@@ -77,7 +106,12 @@ function Profile({ userData }) {
             </label>
             {errors?.email && (
               <p className="form-profile__err-message">
-                {errors?.email.message || "Что-то пошло не так..."}
+                {errors?.email.message || "Проверьте заполнено ли поле"}
+              </p>
+            )}
+            {errorMessage && (
+              <p className="form-profile__err-message form-profile__info-allert">
+                {errorMessage}
               </p>
             )}
           </div>
@@ -85,15 +119,22 @@ function Profile({ userData }) {
             <li className="form-profile__btn-li">
               <button
                 type="submit"
-                className="form-profile__btn-submit link_color_white"
+                disabled={isSubmitting || !isDirty}
+                className={`form-profile__btn-submit link_color_white ${
+                  (isSubmitting || !isDirty) && "form-profile__btn_blocked"
+                }`}
               >
-                Редактировать
+                {isSubmitting ? "Обновление..." : "Редактировать"}
               </button>
             </li>
             <li className="form-profile__btn-li">
-              <Link to="/" className="form-profile__btn-exit">
+              <button
+                type="button"
+                className="form-profile__btn-exit"
+                onClick={signOut}
+              >
                 Выйти из аккаунта
-              </Link>
+              </button>
             </li>
           </ul>
         </form>

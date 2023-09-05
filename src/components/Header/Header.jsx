@@ -10,22 +10,20 @@ function Header({ logo, loggedIn }) {
   }
 
   return (
-    <>
-      <header
-        className={`header ${
-          loggedIn ? "header-bg_color_none" : "header-bg_color_blue"
-        }`}
-      >
-        <div className="container-padding-small">
-          <div className="header__up">
-            <Link to="/" className="menu__link logo">
-              <img src={logo} alt="Логотип" />
-            </Link>
-            <Navigation loggedIn={loggedIn} />
-          </div>
+    <header
+      className={`header ${
+        loggedIn ? "header-bg_color_none" : "header-bg_color_blue"
+      }`}
+    >
+      <div className="container-padding-small">
+        <div className="header__up">
+          <Link to="/" className="menu__link logo">
+            <img src={logo} alt="Логотип" />
+          </Link>
+          <Navigation loggedIn={loggedIn} />
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }
 

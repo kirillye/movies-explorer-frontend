@@ -1,21 +1,41 @@
 import "./Register.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { validateEmail } from "../../utils/constants";
 
-function Register({ logo }) {
+function Register({ logo, handleRegister, handleLogin }) {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting, isValid },
     handleSubmit,
     reset,
   } = useForm({
     mode: "onBlur",
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log("Форма успешно отправлена");
-    reset();
+    return new Promise((resolve) => {
+      const email = data.email;
+      const password = data.password;
+      const name = data.userName;
+      handleRegister(email, password, name)
+        .then((res) => {
+          if (res == "Ошибка: 409") {
+            return setErrorMessage("Email уже зарегистрирован");
+          }
+          if (typeof res && res?.includes("Ошибка")) {
+            return setErrorMessage("Что-то пошло не так.. (");
+          }
+          setErrorMessage(null);
+          reset();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
 
   return (
@@ -47,6 +67,7 @@ function Register({ logo }) {
               className={`form-aut__input form-aut__input-user ${
                 errors?.userName ? "form-aut__input-error" : ""
               }`}
+              disabled={isSubmitting ? "disabled" : ""}
               id="userName"
             />
             {errors?.userName && (
@@ -61,12 +82,13 @@ function Register({ logo }) {
               {...register("email", {
                 required: "Поле обязательно к заполнению",
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                  value: validateEmail,
                   message: "email указан некорректно",
                 },
               })}
               placeholder="Email"
               type="email"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input form-aut__input-email ${
                 errors?.email ? "form-aut__input-error" : ""
               }`}
@@ -83,9 +105,14 @@ function Register({ logo }) {
             <input
               {...register("password", {
                 required: "Поле обязательно к заполнению",
+                minLength: {
+                  value: 8,
+                  message: "Минимум 8 символа", // JS only: <p>error message</p> TS only support string
+                },
               })}
               placeholder="Пароль"
               type="password"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input ${
                 errors?.password ? "form-aut__input-error" : ""
               }`}
@@ -98,8 +125,17 @@ function Register({ logo }) {
             )}
           </div>
           <div className="info-autorization">
-            <button type="submit" className="form-aut__btn btn">
-              Зарегистрироваться
+            {errorMessage && (
+              <p className="info-autorization__error">{errorMessage}</p>
+            )}
+            <button
+              type="submit"
+              className={`form-aut__btn btn ${
+                (isSubmitting || !isValid) && "form-aut__btn-login_blocked"
+              }`}
+              disabled={(isSubmitting || !isValid) && true}
+            >
+              {isSubmitting ? "Регистрация..." : "Зарегистрироваться"}
             </button>
             <span className="info-autorization__alert">
               Уже зарегистрированы ?

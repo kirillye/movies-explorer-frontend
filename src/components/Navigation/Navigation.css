@@ -33,6 +33,14 @@
 }
 
 .menu-movies__link {
+  opacity: 0.75;
+}
+
+.desctop-menu .active {
+  opacity: 1;
+}
+
+.menu-movies__link {
   font-size: 13px;
   line-height: 18px;
 }

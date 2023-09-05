@@ -1,21 +1,45 @@
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { validateEmail } from "../../utils/constants";
 
-function Login({ logo }) {
+function Login({ logo, handleLogin }) {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting, isValid },
     handleSubmit,
     reset,
   } = useForm({
     mode: "onBlur",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log("Форма успешно отправлена");
-    reset();
+    return new Promise((resolve) => {
+      const userEmail = data.email;
+      const userPassword = data.password;
+      handleLogin(userEmail, userPassword)
+        .then((res) => {
+          if (typeof res && res?.includes("логин")) {
+            return setErrorMessage("Логин или пароль не верен");
+          }
+          if (typeof res && res?.includes("пароль")) {
+            return setErrorMessage("Логин или пароль не верен");
+          }
+          if (typeof res && res?.includes("Ошибка")) {
+            return setErrorMessage("Что-то пошло не так.. (");
+          }
+          setErrorMessage(null);
+          reset();
+        })
+        .catch((err) => {
+          if (err === "Ошибка: 401") {
+            return setErrorMessage("Логин или пароль не верен");
+          }
+          setErrorMessage(err);
+        });
+    });
   };
 
   return (
@@ -34,12 +58,13 @@ function Login({ logo }) {
               {...register("email", {
                 required: "Поле обязательно к заполнению",
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                  value: validateEmail,
                   message: "email указан некорректно",
                 },
               })}
               placeholder="Email"
               type="email"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input form-aut__input-email ${
                 errors?.email ? "form-aut__input-error" : ""
               }`}
@@ -56,9 +81,14 @@ function Login({ logo }) {
             <input
               {...register("password", {
                 required: "Поле обязательно к заполнению",
+                minLength: {
+                  value: 8,
+                  message: "Минимум 8 символа", // JS only: <p>error message</p> TS only support string
+                },
               })}
               placeholder="Пароль"
               type="password"
+              disabled={isSubmitting ? "disabled" : ""}
               className={`form-aut__input ${
                 errors?.password ? "form-aut__input-error" : ""
               }`}
@@ -71,11 +101,17 @@ function Login({ logo }) {
             )}
           </div>
           <div className="info-autorization">
+            {errorMessage && (
+              <p className="info-autorization__error">{errorMessage}</p>
+            )}
             <button
               type="submit"
-              className="form-aut__btn btn form-aut__btn-login"
+              disabled={(isSubmitting || !isValid) && true}
+              className={`form-aut__btn btn form-aut__btn-login ${
+                (isSubmitting || !isValid) && "form-aut__btn-login_blocked"
+              }`}
             >
-              Войти
+              {isSubmitting ? "Авторизация..." : "Войти"}
             </button>
             <span className="info-autorization__alert">
               Ещё не зарегистрированы?
